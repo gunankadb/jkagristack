@@ -17,15 +17,15 @@ By decoupling "Service Eligibility" from "Legal Title Finality," this system all
 
 The application is divided into two distinct operational phases:
 
-### Phase 0: VDV Mobile Data Collection
-* **Problem:** Field data is often captured on paper and later retyped, creating delays and errors.
-* **Solution:** A mobile-friendly flow with Aadhaar verification, farmer registration, and plot capture in real time.
-* **Tech:** Streamlit form-based capture with GPS simulation, auto-area calculation on geo capture, and CSV export.
-
 ### Phase 1: Human-in-the-Loop Digitization Workbench
 * **Problem:** Legacy records are in *Shikasta* (cursive) Urdu and often illegible.
 * **Solution:** A split-screen interface where **AI-Simulated OCR** extracts raw data, and a Village Data Volunteer (VDV) verifies/edits the entries against the original PDF scan.
 * **Tech:** Utilizes a **Simulated OCR Pipeline** to mimic the post-processing of Bhashini AI outputs.
+
+### Phase: Field Verification (VDV Mobile Collection)
+* **Problem:** Field data is often captured on paper and later retyped, creating delays and errors.
+* **Solution:** A mobile-friendly flow with Aadhaar verification, farmer registration, and plot capture in real time.
+* **Tech:** Streamlit form-based capture with GPS simulation, auto-area calculation on geo capture, and CSV export.
 
 ### Phase 2: Governance & GIS Engine
 This is the algorithmic core that processes the digitized data:
@@ -53,11 +53,11 @@ This is the algorithmic core that processes the digitized data:
 
 | Code Feature | Policy Principle Implemented |
 | :--- | :--- |
-| **Offline-Resilient Hashing** | **Sec 2.1.1:** Deterministic ID generation (`Name` + `Village` + `DeviceID`) ensuring uniqueness without connectivity. |
-| **Fuzzy Matching** | **Sec 3.1.A:** Handles spelling variations between Urdu and English IDs. |
-| **GIS Module** | **Sec 4.2:** Plot Integrity; Ensures VDV physically visited the field. |
-| **Grey Channel** | **Sec 3.2:** Amnesty for *Varasat* (Inheritance) pending mutations. |
-| **Amber Channel** | **Table 3.1:** Financial inclusion for *Custodian/Evacuee* land occupants. |
+| **Offline-Resilient Hashing** | **Sec 2:** Deterministic ID generation (`Name` + `Village` + `DeviceID`) ensuring uniqueness without connectivity. |
+| **Fuzzy Matching** | **Sec 3:** Handles spelling variations between Urdu and English IDs. |
+| **GIS Module** | **Sec 4:** Plot Integrity; Ensures VDV physically visited the field. |
+| **Grey Channel** | **Sec 3:** Amnesty for *Varasat* (Inheritance) pending mutations. |
+| **Amber Channel** | **Table 3:** Financial inclusion for *Custodian/Evacuee* land occupants. |
 
 ---
 
@@ -91,7 +91,7 @@ The application will open in your browser at `http://localhost:8501`.
 * The system simulates the OCR extraction. As a VDV, verify the data against the PDF viewer.
 * Click **"Download Verified CSV"**.
 
-1. **VDV Mobile Collection:**
+1. **Field Verification (VDV Mobile Collection):**
 * Go to the **"VDV Mobile Collection"** tab.
 * Verify Aadhaar (dummy), register the farmer, then add plot data.
 * Farmer Registration auto-prefills from the corrected OCR dataset where available.
