@@ -8,6 +8,7 @@ from difflib import SequenceMatcher
 import random
 import base64
 from pathlib import Path
+import fitz
 import math
 import pydeck as pdk
 from datetime import datetime, timedelta
@@ -885,18 +886,17 @@ with tab1:
         with col_left:
             st.subheader("Source Document (PDF)")
             st.info("Reference: Original Shikasta Urdu Script")
-            
-            # --- PDF EMBEDDING LOGIC ---
-            # 1. Read file as bytes
             uploaded_raw.seek(0)
-            base64_pdf = base64.b64encode(uploaded_raw.read()).decode('utf-8')
-            
-            # 2. Embed PDF in HTML iframe
-            pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="600" type="application/pdf"></iframe>'
-            
-            # 3. Render in Streamlit
-            st.markdown(pdf_display, unsafe_allow_html=True)
-            # ---------------------------
+            pdf_bytes = uploaded_raw.read()
+            try:
+                doc = fitz.open(stream=pdf_bytes, filetype="pdf")
+                page_count = doc.page_count
+                page_idx = st.slider("Page", 1, page_count, 1) - 1
+                page = doc.load_page(page_idx)
+                pix = page.get_pixmap(dpi=150)
+                st.image(pix.tobytes("png"), use_container_width=True)
+            except Exception:
+                st.warning("PDF preview unavailable. Please re-upload or use a different browser.")
 
         # RIGHT SCREEN: Editable Data
         with col_right:
