@@ -7,6 +7,7 @@ import re
 from difflib import SequenceMatcher
 import random
 import base64
+from pathlib import Path
 import math
 import pydeck as pdk
 from datetime import datetime, timedelta
@@ -556,9 +557,10 @@ def _img_b64(path):
     except Exception:
         return ""
 
-_banner_b64 = _img_b64("/Users/gunanka/Documents/New project/Final Submission HKS/jk_banner.png")
-_govt_b64 = _img_b64("/Users/gunanka/Documents/New project/Final Submission HKS/jk_govt.png")
-_agri_b64 = _img_b64("/Users/gunanka/Documents/New project/Final Submission HKS/jk_agri.png")
+_BASE_DIR = Path(__file__).resolve().parent
+_banner_b64 = _img_b64(_BASE_DIR / "jk_banner.png")
+_govt_b64 = _img_b64(_BASE_DIR / "jk_govt.png")
+_agri_b64 = _img_b64(_BASE_DIR / "jk_agri.png")
 
 st.markdown(f"""
 <div class="banner-wrap" style="background-image:url('data:image/png;base64,{_banner_b64}');">
